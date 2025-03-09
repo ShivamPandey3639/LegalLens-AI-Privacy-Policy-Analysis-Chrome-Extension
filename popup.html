@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LegalLens AI</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      width: 400px;
+      height: 600px;
+      overflow-y: auto;
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+      color: #f8fafc;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(to right, #0ea5e9, #6366f1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(to right, #0ea5e9, #6366f1);
+    }
+    
+    .tab-active {
+      border-bottom: 2px solid #0ea5e9;
+    }
+    
+    .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: .5;
+      }
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body class="p-4 scrollbar-thin">
+  <header class="mb-6 flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold gradient-text">LegalLens AI</h1>
+      <p class="text-sm text-gray-400">Analyze privacy policies and terms of service</p>
+    </div>
+    <a href="settings.html" class="text-gray-400 hover:text-white" title="Settings">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+    </a>
+  </header>
+  
+  <div class="tabs flex border-b border-gray-700 mb-6">
+    <button id="tab-analyze" class="tab-active px-4 py-2 text-sm font-medium flex-1">Analyze</button>
+    <button id="tab-qa" class="px-4 py-2 text-sm font-medium text-gray-400 flex-1">Ask Questions</button>
+    <button id="tab-history" class="px-4 py-2 text-sm font-medium text-gray-400 flex-1">History</button>
+  </div>
+  
+  <div id="content-analyze" class="tab-content">
+    <div class="mb-4">
+      <button id="extract-page" class="w-full gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center">
+        <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Extract from Current Page
+      </button>
+    </div>
+    
+    <div class="mb-4">
+      <p class="text-sm text-gray-400 mb-2">Or paste text to analyze:</p>
+      <textarea id="text-input" class="w-full h-32 bg-gray-800 border border-gray-700 rounded-lg p-3 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Paste privacy policy or terms here..."></textarea>
+    </div>
+    
+    <div class="mb-6">
+      <button id="analyze-btn" class="w-full gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
+        Analyze Content
+      </button>
+    </div>
+    
+    <div id="results" class="hidden">
+      <h2 class="text-lg font-semibold mb-3 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        Key Findings
+      </h2>
+      <div id="results-content" class="bg-gray-800 rounded-lg p-4 text-sm text-gray-300 whitespace-pre-wrap"></div>
+      
+      <div class="grid grid-cols-3 gap-4 mt-6">
+        <div class="bg-gray-800 rounded-lg p-4 text-center">
+          <h3 class="text-sm text-gray-400 mb-1">Privacy Score</h3>
+          <div id="privacy-score" class="text-2xl font-bold gradient-text">--</div>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-4 text-center">
+          <h3 class="text-sm text-gray-400 mb-1">Data Usage</h3>
+          <div id="data-usage" class="text-lg font-medium">--</div>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-4 text-center">
+          <h3 class="text-sm text-gray-400 mb-1">Security</h3>
+          <div id="security-level" class="text-lg font-medium">--</div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="loading" class="hidden text-center py-8">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+      <p class="mt-3 text-gray-400">Analyzing content...</p>
+    </div>
+  </div>
+  
+  <div id="content-qa" class="tab-content hidden">
+    <div class="mb-4">
+      <p class="text-sm text-gray-400 mb-2">Ask a question about privacy policies:</p>
+      <textarea id="qa-input" class="w-full h-24 bg-gray-800 border border-gray-700 rounded-lg p-3 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="e.g., What should I look for in a privacy policy?"></textarea>
+    </div>
+    
+    <div class="mb-6">
+      <button id="qa-btn" class="w-full gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
+        Ask Question
+      </button>
+    </div>
+    
+    <div id="qa-results" class="hidden">
+      <h2 class="text-lg font-semibold mb-3 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Answer
+      </h2>
+      <div id="qa-results-content" class="bg-gray-800 rounded-lg p-4 text-sm text-gray-300"></div>
+    </div>
+    
+    <div id="qa-loading" class="hidden text-center py-8">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+      <p class="mt-3 text-gray-400">Processing question...</p>
+    </div>
+  </div>
+  
+  <div id="content-history" class="tab-content hidden">
+    <h2 class="text-lg font-semibold mb-3">Recent Analyses</h2>
+    <div id="history-list" class="space-y-3">
+      <p class="text-gray-400 text-sm italic">No history yet</p>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html> 

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LegalLens AI - Settings</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      width: 400px;
+      height: 600px;
+      overflow-y: auto;
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+      color: #f8fafc;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(to right, #0ea5e9, #6366f1);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(to right, #0ea5e9, #6366f1);
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+    
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 24px;
+    }
+    
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #374151;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background: linear-gradient(to right, #0ea5e9, #6366f1);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+  </style>
+</head>
+<body class="p-4 scrollbar-thin">
+  <header class="mb-6 flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold gradient-text">Settings</h1>
+      <p class="text-sm text-gray-400">Configure LegalLens AI</p>
+    </div>
+    <button id="back-button" class="text-gray-400 hover:text-white">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+  </header>
+  
+  <div class="space-y-6">
+    <div class="bg-gray-800 rounded-lg p-4">
+      <h2 class="text-lg font-medium mb-4">General Settings</h2>
+      
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-medium">Auto-detect Privacy Policies</h3>
+            <p class="text-sm text-gray-400">Show button when privacy policies are detected</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="auto-detect" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-medium">Show Notifications</h3>
+            <p class="text-sm text-gray-400">Display notifications when privacy policies are found</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="show-notifications" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-medium">Cache Results</h3>
+            <p class="text-sm text-gray-400">Save analysis results to improve performance</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="cache-results" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-gray-800 rounded-lg p-4">
+      <h2 class="text-lg font-medium mb-4">Data & Privacy</h2>
+      
+      <div class="space-y-4">
+        <div>
+          <h3 class="font-medium mb-2">API Key (Optional)</h3>
+          <input type="password" id="api-key" placeholder="Enter your Hugging Face API key" class="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <p class="text-xs text-gray-400 mt-1">Leave blank to use the default key</p>
+        </div>
+        
+        <div class="pt-2">
+          <button id="clear-history" class="w-full bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
+            Clear History
+          </button>
+          <p class="text-xs text-gray-400 mt-1">Remove all saved analyses and questions</p>
+        </div>
+        
+        <div class="pt-2">
+          <button id="clear-cache" class="w-full bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
+            Clear Cache
+          </button>
+          <p class="text-xs text-gray-400 mt-1">Remove all cached results</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-gray-800 rounded-lg p-4">
+      <h2 class="text-lg font-medium mb-4">About</h2>
+      
+      <div class="space-y-2">
+        <p class="text-sm"><span class="text-gray-400">Version:</span> <span id="version">1.0.0</span></p>
+        <p class="text-sm"><span class="text-gray-400">Build Date:</span> <span id="build-date">-</span></p>
+        
+        <div class="pt-2">
+          <a href="privacy-policy.html" target="_blank" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+            Privacy Policy
+            <svg class="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="save-message" class="fixed bottom-4 left-0 right-0 mx-auto w-max bg-green-900 text-white px-4 py-2 rounded-lg shadow-lg transform translate-y-16 transition-transform duration-300">
+    Settings saved successfully
+  </div>
+  
+  <script src="settings.js"></script>
+</body>
+</html> 

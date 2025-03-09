@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "LegalLens AI",
+  "version": "1.0.0",
+  "description": "Analyze privacy policies and terms of service to reveal potential dangers and protect your rights",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "public/icon16.png",
+      "48": "public/icon48.png",
+      "128": "public/icon128.png"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "16": "public/icon16.png",
+    "48": "public/icon48.png",
+    "128": "public/icon128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://api-inference.huggingface.co/ https://*.huggingface.co/ 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["public/*", "src/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+} 
