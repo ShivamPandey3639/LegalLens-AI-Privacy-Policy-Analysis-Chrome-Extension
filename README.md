@@ -104,6 +104,29 @@ This extension processes text locally and sends it to an API for analysis. No da
 - `src/api/`: API integration for text analysis
 - `build-extension.js`: Build script for the extension
 
+┌───────────────────────────────────────────────────────────────────────────┐
+│                                                                           │
+│                        LegalLens AI Data Flow                             │
+│                        ────────────────────────                           │
+│                                                                           │
+│  ┌──────────┐     ┌───────────┐     ┌──────────┐     ┌───────────────┐   │
+│  │   User   │────▶│ Interface │────▶│   API    │────▶│ HuggingFace   │   │
+│  └──────────┘     └───────────┘     └──────────┘     └───────────────┘   │
+│       │                 ▲               │                    │            │
+│       │                 │               │                    │            │
+│       │                 └───────────────┘                    │            │
+│       │                                                      │            │
+│       └──────────────────────────────────────────────────────┘            │
+│                                                                           │
+│  1. User uploads/pastes privacy policy or asks question                   │
+│  2. Interface sends text to API                                           │
+│  3. API processes request and calls HuggingFace                           │
+│  4. HuggingFace returns analysis/answer                                   │
+│  5. API formats response and returns to interface                         │
+│  6. Interface displays results to user                                    │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
 ### Building
 
 Run `npm run build-extension` to build the extension to the `dist` directory.
